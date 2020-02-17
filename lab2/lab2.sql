@@ -38,12 +38,10 @@ CREATE TABLE performance_actor
     PRIMARY KEY (id_performance, id_actor),
     CONSTRAINT fk_performnce_actor_performance
         FOREIGN KEY (id_performance)
-            REFERENCES performance (id)
-				ON DELETE CASCADE ON UPDATE NO ACTION,
+            REFERENCES performance (id),
     CONSTRAINT fk_performnce_actor_actor
         FOREIGN KEY (id_actor)
             REFERENCES actor (id)
-				ON DELETE CASCADE ON UPDATE NO ACTION
 );
 
 CREATE TABLE author
@@ -62,12 +60,10 @@ CREATE TABLE performance_author
     PRIMARY KEY (id_performance, id_author),
     CONSTRAINT fk_performnce_author_performance
         FOREIGN KEY (id_performance)
-            REFERENCES performance (id)
-				ON DELETE CASCADE ON UPDATE NO ACTION,
+            REFERENCES performance (id),
     CONSTRAINT fk_performnce_author_author
         FOREIGN KEY (id_author)
             REFERENCES author (id)
-				ON DELETE CASCADE ON UPDATE NO ACTION
 );
 
 CREATE TABLE genre
@@ -84,10 +80,8 @@ CREATE TABLE performance_genre
     PRIMARY KEY (id_performance, id_genre),
     CONSTRAINT fk_performnce_genre_performance
         FOREIGN KEY (id_performance)
-            REFERENCES performance (id)
-				ON DELETE CASCADE ON UPDATE NO ACTION,
+            REFERENCES performance (id),
     CONSTRAINT fk_performnce_genre_genre
         FOREIGN KEY (id_genre)
             REFERENCES genre (id)
-				ON DELETE CASCADE ON UPDATE NO ACTION
 );
