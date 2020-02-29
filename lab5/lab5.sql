@@ -155,5 +155,17 @@ DELETE FROM `theatre_db`.`performance` WHERE data_performance<"2020-02-02";
 
 UPDATE performance SET duration = duration + 1;
 
+CREATE TABLE actor1 AS SELECT id, name, surname, experience FROM actor WHERE id<4;
+SELECT * FROM actor1;
 
+CREATE TABLE actor2 AS SELECT id, name, surname, experience FROM actor WHERE id>2;
+SELECT * FROM actor2;
+
+SELECT * FROM actor1 UNION SELECT * FROM actor2;
+
+SELECT * FROM actor1 WHERE id IN (SELECT id FROM actor2);
+
+SELECT * FROM actor2 WHERE id NOT IN (SELECT id FROM actor1);
+
+SELECT * FROM actor1, actor2;
 

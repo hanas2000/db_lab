@@ -1,5 +1,6 @@
+Drop database theatre_db;
 CREATE DATABASE theatre_db;
-USE theater_db;
+use theatre_db;
 CREATE TABLE auditorium
 (
     id          INT AUTO_INCREMENT PRIMARY KEY,
@@ -14,19 +15,18 @@ CREATE TABLE performance
     price           VARCHAR(32) NOT NULL,
     duration        INT NOT NULL ,
     id_auditorium   INT NOT NULL ,
-    data_performance TIMESTAMP(6) NOT NULL,
     CONSTRAINT fk_performance_auditorium
         FOREIGN KEY (id_auditorium)
             REFERENCES auditorium (id)
-				ON DELETE CASCADE
+				ON DELETE CASCADE ON UPDATE NO ACTION
 );
 
 
 CREATE TABLE actor
 (
     id          INT AUTO_INCREMENT PRIMARY KEY,
-    name        VARCHAR(64) NOT NULL,
-    surname     VARCHAR(64) NOT NULL,
+    name        VARCHAR(32) NOT NULL,
+    surname     VARCHAR(32) NOT NULL,
     experience  INT NOT NULL
 );
 
@@ -86,3 +86,35 @@ CREATE TABLE performance_genre
         FOREIGN KEY (id_genre)
             REFERENCES genre (id)
 );
+
+SHOW TABLES; 
+DESCRIBE performance;
+
+ALTER TABLE theatre_db.performance
+	ADD COLUMN data_performance TIMESTAMP(6) NOT NULL;
+    
+ALTER TABLE performance ADD UNIQUE INDEX(id_auditorium, data_performance);
+DESCRIBE performance;
+
+ALTER TABLE theatre_db.actor
+    MODIFY name VARCHAR(64) NOT NULL,
+    MODIFY surname VARCHAR(64) NOT NULL;
+DESCRIBE actor;
+
+ALTER TABLE theatre_db.performance
+DROP FOREIGN KEY fk_performance_auditorium;
+
+ALTER TABLE theatre_db.performance
+ADD CONSTRAINT fk_performance_auditorium FOREIGN KEY (id_auditorium)
+REFERENCES theatre_db.auditorium (id) ON DELETE CASCADE;
+
+DESCRIBE performance;
+
+ALTER TABLE theatre_db.actor 
+DROP COLUMN experience;
+DESCRIBE actor;
+
+ALTER TABLE theatre_db.actor 
+ADD COLUMN experience INT NOT NULL;
+DESCRIBE actor;
+
